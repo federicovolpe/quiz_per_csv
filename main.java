@@ -27,7 +27,7 @@ public class main{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("le domande sono state caricate con successo");
+        System.out.println(domande.size() +" domande sono state caricate con successo");
         
         //selezione di una domanda a caso
         //while tthe arraylist is not empty
@@ -45,6 +45,10 @@ public class main{
             
             //se la risposta è giusta
             if(domande.get(n).opzioni[selezione].equals(domande.get(n).risposta)){
+                //clear the screeen
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+
                 System.out.println("--------------------------------------------------------------------------");
                 System.out.println("la risposta è corretta");
 
