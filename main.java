@@ -45,6 +45,7 @@ public class main{
             
             //se la risposta è giusta
             if(domande.get(n).opzioni[selezione].equals(domande.get(n).risposta)){
+                System.out.println("--------------------------------------------------------------------------");
                 System.out.println("la risposta è corretta");
 
                 //rimuovo la domanda dall'arraylist
@@ -52,12 +53,17 @@ public class main{
 
                 //incremento il contatore delle risposte corrette
                 conta_corrette++;
+                System.out.println("risposte corrette " + conta_corrette + " sbagliate " + conta_sbagliate + "\n");
+                System.out.println("--------------------------------------------------------------------------");
 
             }else{
+                System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
                 System.out.println("la risposta è sbagliata,la tua risposta:"+ domande.get(n).opzioni[selezione] +"\n risposta corretta: " + domande.get(n).risposta + "\n");   
                 //non viene tolta la domanda cosi puoi riprovare
 
                 conta_sbagliate++;
+                System.out.println("risposte corrette " + conta_corrette + " sbagliate " + conta_sbagliate + "\n");
+                System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
             }
             
             //rimozione della domanda
