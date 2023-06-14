@@ -7,9 +7,9 @@ import java.util.Scanner;
 
 public class main{
     public static void main(String[] args){
-        System.out.println("Hello World");
+
         //lettura del tsv
-        String csvFile = "./nuovo.csv";
+        String csvFile = "./domande.csv";
         String line;
         String csvSeparator = ";"; // Specify the separator used in your CSV file
         int conta_corrette = 0;
@@ -44,7 +44,7 @@ public class main{
             int selezione = in.nextInt();
             
             //se la risposta è giusta
-            if(domande.get(n).opzioni[selezione].equals(domande.get(n).risposta)){
+            if(domande.get(n).verificaRisposta(selezione)){
                 //clear the screeen
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
@@ -52,17 +52,18 @@ public class main{
                 System.out.println("--------------------------------------------------------------------------");
                 System.out.println("la risposta è corretta");
 
-                //rimuovo la domanda dall'arraylist
-                domande.remove(n);
-
                 //incremento il contatore delle risposte corrette
                 conta_corrette++;
                 System.out.println("risposte corrette " + conta_corrette + " sbagliate " + conta_sbagliate + "\n");
                 System.out.println("--------------------------------------------------------------------------");
-
+                
+                //rimozione della domanda
+                            domande.remove(n);
+                            System.out.println("domanda "+n+" rimossa");
+                
             }else{
                 System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-                System.out.println("la risposta è sbagliata,la tua risposta:"+ domande.get(n).opzioni[selezione] +"\n risposta corretta: " + domande.get(n).risposta + "\n");   
+                System.out.println("la risposta è sbagliata,la tua risposta:"+ domande.get(n).opzioni[selezione-1] +"\n\n risposta corretta: " + domande.get(n).risposta + "\n");   
                 //non viene tolta la domanda cosi puoi riprovare
 
                 conta_sbagliate++;
@@ -70,8 +71,6 @@ public class main{
                 System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
             }
             
-            //rimozione della domanda
-            domande.remove(n);
         }
     }
 }
