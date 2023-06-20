@@ -20,13 +20,14 @@ public class main{
             while ((line = br.readLine()) != null) {
                 //arry di stringhe con i dati
                 String[] data = line.split(csvSeparator);
-                
+                System.out.println("genero la domanda numero: " + data[0] );
                 //riempimento dell'arraylist
                 domande.add(new domanda(data[0],data[1],data[2],data[3],data[4],data[5],data[6]));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        int numeroTotaleDomande = domande.size(); 
         System.out.println(domande.size() +" domande sono state caricate con successo");
         
         //selezione di una domanda a caso
@@ -54,7 +55,7 @@ public class main{
 
                 //incremento il contatore delle risposte corrette
                 conta_corrette++;
-                System.out.println("risposte corrette " + conta_corrette + " sbagliate " + conta_sbagliate + "\n");
+                System.out.println("risposte corrette " + conta_corrette +"/" + numeroTotaleDomande + " sbagliate " + conta_sbagliate + "\n");
                 System.out.println("--------------------------------------------------------------------------");
                 
                 //rimozione della domanda
@@ -63,11 +64,11 @@ public class main{
                 
             }else{
                 System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-                System.out.println("la risposta è sbagliata,la tua risposta:"+ domande.get(n).opzioni[selezione-1] +"\n\n risposta corretta: " + domande.get(n).risposta + "\n");   
+                System.out.println("la risposta è sbagliata,la tua risposta:\n"+ domande.get(n).opzioni[selezione-1] +"\n\n risposta corretta: \n" + domande.get(n).risposta + "\n");   
                 //non viene tolta la domanda cosi puoi riprovare
 
                 conta_sbagliate++;
-                System.out.println("risposte corrette " + conta_corrette + " sbagliate " + conta_sbagliate + "\n");
+                System.out.println("risposte corrette: " + conta_corrette + "/" + numeroTotaleDomande +" sbagliate " + conta_sbagliate + "\n");
                 System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
             }
             
