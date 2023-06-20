@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -39,10 +40,18 @@ public class main{
             
             //stampa della domanda
             System.out.println(domande.get(n).toString());
-            
-            //read next int
+
             Scanner in = new Scanner(System.in);
             int selezione = in.nextInt();
+            //read next int
+            try{
+                while(selezione > 4 || selezione < 1 ){
+                    System.out.println(selezione + "non è una opzione disponibile");
+                    selezione = in.nextInt();
+                }
+            }catch (InputMismatchException e) {
+                System.out.println("bravo, hai rotto il gioco !");
+            }
             
             //se la risposta è giusta
             if(domande.get(n).verificaRisposta(selezione)){
