@@ -73,9 +73,9 @@ public class main{
                 
             }else{
                 System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-                System.out.println("la risposta è sbagliata,la tua risposta:\n"+ domande.get(n).opzioni[selezione-1] +"\n\n risposta corretta: \n" + domande.get(n).risposta + "\n");   
-                //non viene tolta la domanda cosi puoi riprovare
 
+System.out.println("la risposta è sbagliata, risposta corretta: \n" + domande.get(n).risposta + "\n");   
+                
                 conta_sbagliate++;
                 System.out.println("risposte corrette: " + conta_corrette + "/" + numeroTotaleDomande +" sbagliate " + conta_sbagliate + "\n");
                 System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
