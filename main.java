@@ -37,6 +37,7 @@ public class main{
             //generazione di un numero casuale
             Random rand = new Random();
             int n = rand.nextInt(domande.size());
+            System.out.println("numero estratto: " + n);
             
             //stampa della domanda
             System.out.println(domande.get(n).toString());
