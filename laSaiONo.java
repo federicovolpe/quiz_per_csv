@@ -1,30 +1,19 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Random;
-import java.util.Scanner;
-
-public class main{
+/**
+ * programma alternativo per la esercitazione con domande aperte
+ */
+public clas laSaiONo{
     public static void main(String[] args){
+        //lettura di una domanda dal csv
+        String csvFile = "./domandeAperte.csv";
+        ArrayList<domandaAperta> domande = new ArrayList<>();
 
-        //lettura del tsv
-        String csvFile = "./domande.csv";
-        String line;
-        int conta_corrette = 0;
-        int conta_sbagliate = 0;
-
-        ArrayList<domanda> domande = new ArrayList<domanda>();
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-            while ((line = br.readLine()) != null) {
-                //arry di stringhe con i dati
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)){
+            while((line = br.readLine()) != null){
                 String[] data = line.split(";");
-                System.out.println("genero la domanda numero: " + data[0] );
-                //riempimento dell'arraylist
-                domande.add(new domanda(data[0],data[1],data[2],data[3],data[4],data[5],data[6]));
+                System.out.println("generata la domanda: "+ data[0]);
+                domande.add(new domandaAperta(data[0], data[1], data[2]));
             }
-        } catch (IOException e) {
+        }catch(IOException e){
             e.printStackTrace();
         }
         int numeroTotaleDomande = domande.size(); 
@@ -42,7 +31,7 @@ public class main{
             System.out.println(domande.get(n).toString());
 
             Scanner in = new Scanner(System.in);
-            int selezione = in.nextInt();
+            String selezione = in.nextchar();
             //read next int
             try{
                 while(selezione > 4 || selezione < 1 ){
