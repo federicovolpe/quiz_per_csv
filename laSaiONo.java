@@ -36,7 +36,7 @@ public clas laSaiONo{
             try{
                 while(selezione > 4 || selezione < 1 ){
                     System.out.println(selezione + "non è una opzione disponibile");
-                    selezione = in.nextInt();
+                    selezione = in.nextchar();
                 }
             }catch (InputMismatchException e) {
                 System.out.println("bravo, hai rotto il gioco !");
