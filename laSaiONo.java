@@ -1,13 +1,24 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Random;
+import java.util.Scanner;
+
 /**
  * programma alternativo per la esercitazione con domande aperte
  */
-public clas laSaiONo{
+public class laSaiONo{
     public static void main(String[] args){
         //lettura di una domanda dal csv
-        String csvFile = "./domandeAperte.csv";
+        final String csvFile = "./domandeAperte.csv";
         ArrayList<domandaAperta> domande = new ArrayList<>();
+        String line;
+        int conta_corrette = 0;
+        int conta_sbagliate = 0;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)){
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while((line = br.readLine()) != null){
                 String[] data = line.split(";");
                 System.out.println("generata la domanda: "+ data[0]);
@@ -28,32 +39,36 @@ public clas laSaiONo{
             System.out.println("numero estratto: " + n);
             
             //stampa della domanda
-            System.out.println(domande.get(n).toString());
+            System.out.println(domande.get(n).domanda());
+            System.out.println("per visualizzare la risposta premi invio");
 
             Scanner in = new Scanner(System.in);
-            String selezione = in.nextchar();
-            //read next int
+            in.nextLine();
+            System.out.println("risposta:\n"+ domande.get(n).risposta()+"\n\n\n(premi a per risposta corretta, premi qualsiasi altro per risposta sbagliata)");
+
+            String selezione = in.nextLine();
+            
+            //raccolta dell'input la sai (a) o no (d)
             try{
-                while(selezione > 4 || selezione < 1 ){
+                while(!(selezione.equals("a") || selezione.equals("d"))){
                     System.out.println(selezione + "non è una opzione disponibile");
-                    selezione = in.nextchar();
+                    selezione = in.nextLine();
                 }
             }catch (InputMismatchException e) {
                 System.out.println("bravo, hai rotto il gioco !");
             }
             
             //se la risposta è giusta
-            if(domande.get(n).verificaRisposta(selezione)){
+            if(selezione.equals("a")){
                 //clear the screeen
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
 
                 System.out.println("--------------------------------------------------------------------------");
-                System.out.println("la risposta è corretta");
 
                 //incremento il contatore delle risposte corrette
                 conta_corrette++;
-                System.out.println("risposte corrette " + conta_corrette +"/" + numeroTotaleDomande + " sbagliate " + conta_sbagliate + "\n");
+                System.out.println("risposte corrette " + conta_corrette +"/" + numeroTotaleDomande + "\n");
                 System.out.println("--------------------------------------------------------------------------");
                 
                 //rimozione della domanda
@@ -61,12 +76,12 @@ public clas laSaiONo{
                             System.out.println("domanda "+n+" rimossa");
                 
             }else{
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
                 System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-
-System.out.println("la risposta è sbagliata, risposta corretta: \n" + domande.get(n).risposta + "\n");   
                 
                 conta_sbagliate++;
-                System.out.println("risposte corrette: " + conta_corrette + "/" + numeroTotaleDomande +" sbagliate " + conta_sbagliate + "\n");
+                System.out.println("risposte corrette: " + conta_corrette + "/" + numeroTotaleDomande +"\n");
                 System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
             }
             
