@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class laSaiONo{
     public static void main(String[] args){
         //lettura di una domanda dal csv
-        final String csvFile = "./domandeAperte.csv";
+        final String csvFile = "./domande.csv";
         ArrayList<domandaAperta> domande = new ArrayList<>();
         String line;
         int conta_corrette = 0;
@@ -22,7 +22,7 @@ public class laSaiONo{
             while((line = br.readLine()) != null){
                 String[] data = line.split(";");
                 System.out.println("generata la domanda: "+ data[0]);
-                domande.add(new domandaAperta(data[0], data[1], data[2]));
+                domande.add(new domandaAperta(data[0], data[1], data[6]));
             }
         }catch(IOException e){
             e.printStackTrace();
