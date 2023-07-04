@@ -16,3 +16,13 @@ in entrambi i casi vige la possibilità di tornare indietro a vedere le domande 
 - domande aperte: verrà mostrata una domanda, se l'utente preme il tasto invio viene mostrata la risposta, successivamente si può valutare se la risposta data dall'utente è reputata giusta, se giusta basta premere invio se sbagliata basta che si prema il tasto corrispondente
 
 **in entrambi i casi** le domande con esito negative verranno riproposte all'utente mentre quelle giuste non verrano più proposte
+
+## funzionamento
+****per fare funzionare tuttto c'è la necessità di avere java****
+per provare l'applicazione prima di tutto verificare che tutti i files della repository siano posizionati nella stessa directory, 
+posizionarsi con il terminale nella directory dove stanno tutti i file
+lanciare il comando: javac main.java
+lanciare il comando: java main.java
+
+se tutto andrà come previsto verranno mostrate tutte le domande che sono state caricate con successo
+e il quiz partirà.
