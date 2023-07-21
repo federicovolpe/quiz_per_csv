@@ -1,0 +1,61 @@
+1;selezione testo;v
+2;selezione righe;V
+3;chiudi file;:q
+4;chiudi tutti i file;:qa
+5;salva;:W
+6;salva e chiudi;:wq / :x
+7;salva e chiudi tutto;ZZ
+8;precedente parola/ prossima ;b / w
+9;fine della precedente parola/ prossima; ge / e
+10;inizio della linea;0
+11;inizio della riga (dopo gli spazi);^
+12;fine del file;$
+13;vai al carattere 'i';f 'i'
+14;vai alla prima linea; gg
+15;vai all'ultima riga; G 
+16;vai alla linea numero <n>; :<n>
+17; vai al prossimo pattern <p>; n 
+18; vai al precedente pattern ; N 
+19; precedente occorrenza della parola sotto il cursore;#
+20; edita file in un nuovo tab;:tabedit <file>
+21;apri file in un nuovo tab;:tabfind <file>
+22;chiudi il tab corrente;:tabclose
+23;lista dei tab;:tabs 
+24;vai al prossimo tab;:tabn 
+25;vai al precedente tab;:tabp
+26;incolla;a 
+27;appendi alla fine;A 
+28;inserisci;i 
+29;prossima riga;o 
+30;riga precedente;O 
+31;sostituisci carattere;s
+32;sostituisci linea;S 
+33;sostituisci un carattere;r 
+34;vai nella modalità sostituisci;R 
+35;back;u 
+36;avanti nei cambiamanti; <C-R>
+37;cancella carattere;x
+38;cancella linea;dd 
+39;copia linea;yy
+40;incolla;p 
+41;incolla prima di questo;P 
+42;sostituisci "quello" con "questo" in tutto il file;:%/quello/questo/g
+43;indenta a destra;>
+44;indenta a sinistra;<
+45;autoindenta; =
+46;cambia case; g~
+47;cancella prossima parola;dw
+48;cancella parola precendente;db
+49;cancella n linee; <n>dd 
+50;trasforma tutta la linea in uppercase;gUU
+51;cambiare tema; space t h 
+52;installare una nuova sintassi di linguaggio;:TSInstall
+53;nel filetree creare un nuovo file; a 
+54;copiare un file e incollarlo altrove nel filetree; c p 
+55;rinominare un file; r 
+56;aprire il finder di files; space f f 
+57;dividere l'editor in due; :sp 
+58;dividere l'editor in due verticalmente; :vsp
+59;chiudere un tab di nvim; space x
+60;aprire il terminale; space h (orizzontale), space v (verticale)
+
