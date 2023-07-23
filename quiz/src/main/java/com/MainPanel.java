@@ -24,8 +24,10 @@ public class MainPanel extends JPanel implements ActionListener{
         text = new JTextField();
         text.setText("scegli la modalita' di quiz");
         text.setForeground(Color.GREEN);
+        text.setBackground(Color.BLACK);
         text.setBounds(0,0,600, 100);
         text.setBorder(BorderFactory.createBevelBorder(1));
+        text.setFont(new Font("Ink Free", Font.BOLD, 30));
         text.setEditable(false);
         text.setHorizontalAlignment(JTextField.CENTER);
 

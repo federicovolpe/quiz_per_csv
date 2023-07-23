@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
  * class that creates a  window if the button is being clicked                              
  * */
 public class DomandeChiuse extends JPanel implements ActionListener{
+    private mainListener mainListener;
     int giuste = 0;
     int sbagliate = 0;
     final int ndomande;
@@ -108,9 +109,10 @@ public class DomandeChiuse extends JPanel implements ActionListener{
                                                                                                                 
             float percentuale = (float)giuste / (float)(giuste + sbagliate) * 100;                                                                             
             statistic.setText((String.format("%.1f", percentuale))+ "%");                    
-        }//else{
-           // paginafinale
-        //}
+        }else{ // if there are no more questions signals to the mainlistener to change page
+            System.out.println("no more questions, going to display statistics");
+            mainListener.onPanelChange("FinalPage");
+        }
     }                                                                                                                                                                                     
                                                                                                                                                                                              
     //listens if one of the buttons is being pressed                                                                                                                                         
@@ -163,4 +165,6 @@ public class DomandeChiuse extends JPanel implements ActionListener{
         pause.setRepeats(false);  
         pause.start();                                     
     }
-}                                                                                                                                                                                        
+
+    public void setmainListener(mainListener l) { this.mainListener = l;}
+}
