@@ -29,7 +29,8 @@ public class DomandeChiuse extends JPanel implements ActionListener{
     /**
      * constructor method for a widnow
      * */
-    public DomandeChiuse(ArrayList<Domanda> domande) {
+    public DomandeChiuse(ArrayList<Domanda> domande, MainFrame mf) {
+        setmainListener(mf);
         this.domande = domande;
         ndomande = domande.size();
 
@@ -99,7 +100,7 @@ public class DomandeChiuse extends JPanel implements ActionListener{
             System.out.println("numero estratto: " + n);                                                            
                                                                                                                 
             d = domande.get(n);                                                                                 
-            numeroDomanda.setText(d.numero.toString());
+            numeroDomanda.setText(d.numero);
 
             testo.setText(d.domanda);
             for(int i = 0; i < 4; i++){
@@ -150,17 +151,13 @@ public class DomandeChiuse extends JPanel implements ActionListener{
             else{opzioni[i].setForeground(Color.RED);}
         }
                                                                                               
-        Timer pause = new Timer(2000, new ActionListener() {                                  
-                                                                                              
-          @Override                                                                           
-          public void actionPerformed(ActionEvent e) {
-              for(int i = 0; i < 4; i++){
-                  opzioni[i].setForeground(Color.WHITE);
-                  buttons[i].setEnabled(true);
-              }
-              next();                                                           
-            }                                                                                   
-        });                                                                     
+        Timer pause = new Timer(2000, e -> {
+            for(int i = 0; i < 4; i++){
+                opzioni[i].setForeground(Color.WHITE);
+                buttons[i].setEnabled(true);
+            }
+            next();
+          });
                                                                                 
         pause.setRepeats(false);  
         pause.start();                                     

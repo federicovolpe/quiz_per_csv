@@ -28,7 +28,8 @@ public class DomandeAperte extends JPanel implements ActionListener{
     /**
      * constructor method for a widnow
      * */
-    public DomandeAperte(ArrayList<Domanda> domande) {
+    public DomandeAperte(ArrayList<Domanda> domande, MainFrame mf) {
+        setmainListener(mf);
         this.domande = domande;
         ndomande = domande.size();
 
@@ -54,7 +55,7 @@ public class DomandeAperte extends JPanel implements ActionListener{
         testo.setFont(new Font("Ink Free", Font.ITALIC, 20));
         this.add(testo);
 
-        risposta.setBounds(0,100,600,100);
+        risposta.setBounds(0,150,600,100);
         risposta.setLineWrap(true);
         risposta.setWrapStyleWord(true);
         risposta.setBackground(Color.BLUE);
@@ -92,7 +93,7 @@ public class DomandeAperte extends JPanel implements ActionListener{
             d = domande.get(n);
             numeroDomanda.setText(d.numero);
             testo.setText(d.domanda);
-            risposta.setText(d.risposta);
+            risposta.setText("Risposta: \n" + d.risposta);
             risposta.setVisible(false);
 
             float percentuale = (float)giuste / (float)(giuste + sbagliate) * 100;
@@ -134,11 +135,11 @@ public class DomandeAperte extends JPanel implements ActionListener{
         // Create the drop panel
         dropPanel = new JPanel();
         dropPanel.setLayout(null);
-        dropPanel.setBounds(200, 200, 200, 100);
-        dropPanel.setBackground(Color.WHITE);
+        dropPanel.setBounds(200, 400, 200, 100);
+        dropPanel.setBackground(Color.BLACK);
 
         showButton = new JButton("show answer");
-        showButton.setBounds(0, 0, 50, 50);
+        showButton.setBounds(0, 0, 200, 50);
         showButton.setBackground(Color.BLACK);
         showButton.setFocusable(false);
         showButton.addActionListener(this);
@@ -166,8 +167,8 @@ public class DomandeAperte extends JPanel implements ActionListener{
         // Create the drop panel with FlowLayout
         dropPanel = new JPanel();
         dropPanel.setLayout(null);
-        dropPanel.setBounds(0, 200, 600, 100);
-        dropPanel.setBackground(Color.WHITE);
+        dropPanel.setBounds(0, 400, 600, 100);
+        dropPanel.setBackground(Color.black);
 
         b1 = new JButton("risposta corretta");
         b1.setBounds(70, 0, 200,100);
@@ -190,7 +191,5 @@ public class DomandeAperte extends JPanel implements ActionListener{
         this.revalidate();
         this.repaint();
     }
-
-
     public void setmainListener(mainListener l) { this.mainListener = l;}
 }

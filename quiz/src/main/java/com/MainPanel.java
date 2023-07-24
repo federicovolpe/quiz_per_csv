@@ -20,13 +20,12 @@ public class MainPanel extends JPanel implements ActionListener, DropTargetListe
     ArrayList<Domanda> domande;
     JButton b1, b2;
     JTextField text;
-
-    String testoletto;
     JPanel dropPanel; // New panel for drop zone
     JLabel dropLabel;
     JLabel iconLabel;
 
-    public MainPanel(ArrayList<Domanda> domande) {
+    public MainPanel(ArrayList<Domanda> domande, MainFrame mf) {
+        setmainListener(mf);
         this.setBackground(Color.BLACK);
         this.setLayout(null);
         this.domande = domande;
@@ -82,7 +81,7 @@ public class MainPanel extends JPanel implements ActionListener, DropTargetListe
         this.add(dropPanel);
 
         // Add drop target functionality to the panel
-        DropTarget dropTarget = new DropTarget(this, this);
+        new DropTarget(this, this);
 
         this.setVisible(true);
     }
@@ -107,28 +106,42 @@ public class MainPanel extends JPanel implements ActionListener, DropTargetListe
 
     @Override
     public void drop(DropTargetDropEvent event) {
-        System.out.println("a file has been dropped");
+        System.out.println("A file has been dropped.");
         try {
             event.acceptDrop(DnDConstants.ACTION_COPY);
             List<File> droppedFiles = (List<File>) event.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
             File droppedFile = droppedFiles.get(0);
-            try (BufferedReader br = new BufferedReader(new FileReader(droppedFile))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    String[] data = line.split(";");
-                    domande.add(new Domanda(data[0], data[1], data[2], data[3], data[4], data[5], data[6]));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
-            System.out.println("file has been read");
+            if (droppedFile.getName().endsWith(".csv")) {
+                try (BufferedReader br = new BufferedReader(new FileReader(droppedFile))) {
+                    String line;
+                    try {
+                        while ((line = br.readLine()) != null) {
+                            String[] data = line.split(";");
+                            domande.add(new Domanda(data[0], data[1], data[2], data[3], data[4], data[5], data[6]));
+                        }
+                    }catch (ArrayIndexOutOfBoundsException e){
+                        System.out.println("file is not formatted correctly, see the documentation at: \nhttps://github.com/federicovolpe/quiz_per_csv");
+                        return;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("File has been read.");
+            } else {
+                System.out.println("File not in the correct format.");
+                return;
+            }
         } catch (UnsupportedFlavorException | IOException ex) {
             ex.printStackTrace();
         }
+
         b1.setEnabled(true);
         b2.setEnabled(true);
         preview();
+
+        event.dropComplete(true);
+        new DropTarget(this,this);
     }
 
     /**

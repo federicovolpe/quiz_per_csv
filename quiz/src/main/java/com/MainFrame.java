@@ -21,8 +21,7 @@ public class MainFrame extends JFrame implements mainListener{
 
         //mainframe is born by default with the main panel
 
-        MainPanel mp = new MainPanel(domande);
-        mp.setmainListener(this);
+        MainPanel mp = new MainPanel(domande,this);
         this.add(mp);
         this.setVisible(true);
     }
@@ -40,21 +39,21 @@ public class MainFrame extends JFrame implements mainListener{
             case "DomandeChiuse" -> {
                 // change of panel to DomandeChiuse
                 this.remove(panels.get(panels.size() - 1));
-                this.add(new DomandeChiuse(domande));
+                this.add(new DomandeChiuse(domande,this));
                 System.out.println("cambio il pannello");
                 this.revalidate();
                 this.repaint();
             }
             case "FinalPage" -> {
                 this.remove(panels.get(panels.size() - 1));
-                this.add(new FinalPage());
+                this.add(new FinalPage(this));
                 System.out.println("cambio il pannello");
                 this.revalidate();
                 this.repaint();
             }
             case "DomandeAperte" -> {
                 this.remove(panels.get(panels.size() - 1));
-                this.add(new DomandeAperte(domande));
+                this.add(new DomandeAperte(domande,this));
                 System.out.println("cambio il pannello");
                 this.revalidate();
                 this.repaint();
