@@ -57,7 +57,7 @@ public class DomandeAperte extends JPanel implements ActionListener{
         risposta.setBounds(0,100,600,100);
         risposta.setLineWrap(true);
         risposta.setWrapStyleWord(true);
-        risposta.setBackground(Color.BLACK);
+        risposta.setBackground(Color.BLUE);
         risposta.setForeground(Color.GREEN);
         risposta.setBorder(BorderFactory.createBevelBorder(1, null, null, null, null));
         risposta.setEditable(false);
@@ -92,11 +92,14 @@ public class DomandeAperte extends JPanel implements ActionListener{
             d = domande.get(n);
             numeroDomanda.setText(d.numero);
             testo.setText(d.domanda);
-            risposta = new JTextArea(d.risposta);
+            risposta.setText(d.risposta);
             risposta.setVisible(false);
 
             float percentuale = (float)giuste / (float)(giuste + sbagliate) * 100;
             statistic.setText((String.format("%.1f", percentuale))+ "%");
+            System.out.println("faccio vedere il bottone show");
+            buttonShow();
+
         }else{ // if there are no more questions signals to the mainlistener to change page
             System.out.println("no more questions, going to display statistics");
             mainListener.onPanelChange("FinalPage");
@@ -110,12 +113,10 @@ public class DomandeAperte extends JPanel implements ActionListener{
             giuste++;
             domande.remove(n);
             next();
-            buttonShow();
         }
         if (e.getSource() == b2) {
             sbagliate++;
             next();
-            buttonShow();
         }
         if (e.getSource() == showButton) {
             answer();
@@ -131,16 +132,17 @@ public class DomandeAperte extends JPanel implements ActionListener{
         }
 
         // Create the drop panel
-        dropPanel = new JPanel(new BorderLayout());
+        dropPanel = new JPanel();
+        dropPanel.setLayout(null);
         dropPanel.setBounds(200, 200, 200, 100);
         dropPanel.setBackground(Color.WHITE);
 
         showButton = new JButton("show answer");
-        showButton.setBounds(0, 0, 20, 20);
+        showButton.setBounds(0, 0, 50, 50);
         showButton.setBackground(Color.BLACK);
         showButton.setFocusable(false);
         showButton.addActionListener(this);
-        showButton.setFont(new Font("Ink Free", Font.BOLD, 10));
+        showButton.setFont(new Font("Ink Free", Font.BOLD, 15));
         showButton.setEnabled(true);
 
         dropPanel.add(showButton);
@@ -162,24 +164,24 @@ public class DomandeAperte extends JPanel implements ActionListener{
         risposta.setVisible(true);
 
         // Create the drop panel with FlowLayout
-        JPanel dropPanel = new JPanel();
+        dropPanel = new JPanel();
         dropPanel.setLayout(null);
-        dropPanel.setBounds(200, 200, 200, 100);
+        dropPanel.setBounds(0, 200, 600, 100);
         dropPanel.setBackground(Color.WHITE);
 
         b1 = new JButton("risposta corretta");
         b1.setBounds(70, 0, 200,100);
         b1.setFocusable(false);
         b1.addActionListener(this);
-        b1.setFont(new Font("Ink Free", Font.BOLD, 30));
+        b1.setFont(new Font("Ink Free", Font.BOLD, 15));
         b1.setVisible(true);
         dropPanel.add(b1);
 
         b2 = new JButton("risposta errata");
-        b2.setBounds(430,0,200,100);
+        b2.setBounds(330,0,200,100);
         b2.setFocusable(false);
         b2.addActionListener(this);
-        b2.setFont(new Font("Ink Free", Font.BOLD, 30));
+        b2.setFont(new Font("Ink Free", Font.BOLD, 15));
         b2.setVisible(true);
         dropPanel.add(b2);
 
