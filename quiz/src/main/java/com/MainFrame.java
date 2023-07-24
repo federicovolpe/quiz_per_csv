@@ -14,13 +14,13 @@ public class MainFrame extends JFrame implements mainListener{
      * of the quizzes will be added
      */
     public MainFrame(){
-        this.domande = domande;
         this.setTitle("Main frame");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 600);
         this.setLocationRelativeTo(null);
 
         //mainframe is born by default with the main panel
+
         MainPanel mp = new MainPanel(domande);
         mp.setmainListener(this);
         this.add(mp);
@@ -36,32 +36,30 @@ public class MainFrame extends JFrame implements mainListener{
     @Override
     public void onPanelChange(String panelName) {
         System.out.println("ricevuto il messaggio"+ panelName);
-        switch(panelName){
-            case "DomandeChiuse":
-            // change of panel to DomandeChiuse
-                this.remove(panels.get(panels.size()-1));
+        switch (panelName) {
+            case "DomandeChiuse" -> {
+                // change of panel to DomandeChiuse
+                this.remove(panels.get(panels.size() - 1));
                 this.add(new DomandeChiuse(domande));
                 System.out.println("cambio il pannello");
                 this.revalidate();
                 this.repaint();
-                break;
-            case "FinalPage":
-                this.remove(panels.get(panels.size()-1));
+            }
+            case "FinalPage" -> {
+                this.remove(panels.get(panels.size() - 1));
                 this.add(new FinalPage());
                 System.out.println("cambio il pannello");
                 this.revalidate();
                 this.repaint();
-                break;
-            case "DomandeAperte":
-                this.remove(panels.get(panels.size()-1));
+            }
+            case "DomandeAperte" -> {
+                this.remove(panels.get(panels.size() - 1));
                 this.add(new DomandeAperte(domande));
                 System.out.println("cambio il pannello");
                 this.revalidate();
                 this.repaint();
-                break;
-            default:
-                System.out.println("change panel recieved but not recognized");
-                break;
+            }
+            default -> System.out.println("change panel recieved but not recognized");
         }
         System.out.println("il messaggio non identificato");
     }

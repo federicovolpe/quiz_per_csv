@@ -1,11 +1,10 @@
 package com;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 
 /**
@@ -18,13 +17,13 @@ public class DomandeAperte extends JPanel implements ActionListener{
     final int ndomande;
     int n;
     Domanda d;
-    JButton[] buttons;
-    String risposta;
-    JTextArea[] opzioni;
+    JButton b1, b2, showButton;
+    JTextArea risposta = new JTextArea();
     JTextField numeroDomanda = new JTextField();
     JTextArea testo = new JTextArea();
     ArrayList<Domanda> domande;
     JTextField statistic;
+    JPanel dropPanel;
 
     /**
      * constructor method for a widnow
@@ -55,25 +54,17 @@ public class DomandeAperte extends JPanel implements ActionListener{
         testo.setFont(new Font("Ink Free", Font.ITALIC, 20));
         this.add(testo);
 
-        buttons = new JButton[4];
-        opzioni = new JTextArea[4];
-        for(int i = 0; i < 4; i ++){
-            buttons[i] = new JButton();
-            buttons[i].setBounds(0, i*100 + 100, 100, 100);
-            buttons[i].setFocusable(false);
-            buttons[i].addActionListener(this);
-            buttons[i].setFont(new Font("Ink Free", Font.BOLD, 30));
-            this.add(buttons[i]);
+        risposta.setBounds(0,100,600,100);
+        risposta.setLineWrap(true);
+        risposta.setWrapStyleWord(true);
+        risposta.setBackground(Color.BLACK);
+        risposta.setForeground(Color.GREEN);
+        risposta.setBorder(BorderFactory.createBevelBorder(1, null, null, null, null));
+        risposta.setEditable(false);
+        risposta.setFont(new Font("Ink Free", Font.ITALIC, 15));
+        this.add(risposta);
 
-            opzioni[i] = new JTextArea();
-            opzioni[i].setBounds(125, i*100+130, 450, 100);
-            opzioni[i].setBackground(Color.BLACK);
-            opzioni[i].setForeground(Color.WHITE);
-            opzioni[i].setFont(new Font("Ink Free", Font.PLAIN, 14));
-            opzioni[i].setLineWrap(true);
-            opzioni[i].setWrapStyleWord(true);
-            this.add(opzioni[i]);
-        }
+        buttonShow();
 
         statistic = new JTextField();
         statistic.setBounds(500,500,100,100);
@@ -99,13 +90,10 @@ public class DomandeAperte extends JPanel implements ActionListener{
             System.out.println("numero estratto: " + n);
 
             d = domande.get(n);
-            numeroDomanda.setText(d.numero.toString());
-
+            numeroDomanda.setText(d.numero);
             testo.setText(d.domanda);
-            for(int i = 0; i < 4; i++){
-                opzioni[i].setText(d.opzioni[i]);
-            }
-            this.risposta = d.risposta;
+            risposta = new JTextArea(d.risposta);
+            risposta.setVisible(false);
 
             float percentuale = (float)giuste / (float)(giuste + sbagliate) * 100;
             statistic.setText((String.format("%.1f", percentuale))+ "%");
@@ -118,53 +106,89 @@ public class DomandeAperte extends JPanel implements ActionListener{
     //listens if one of the buttons is being pressed
     @Override
     public void actionPerformed(ActionEvent e) {
-        for(int i = 0; i < 4; i++){
-            if (e.getSource() == buttons[i]) {
-                if (opzioni[i].getText().equals(risposta)) {
-                    giuste++;
-                    rimuovi();
-                }else{
-                    sbagliate++;
-                }
-            }
+        if (e.getSource() == b1) {
+            giuste++;
+            domande.remove(n);
+            next();
+            buttonShow();
         }
-        rivela();
+        if (e.getSource() == b2) {
+            sbagliate++;
+            next();
+            buttonShow();
+        }
+        if (e.getSource() == showButton) {
+            answer();
+        }
     }
 
     /**
-     * method which removes the question that has been anwered correctly
-     *
+     * method whish shows only the button "show answer"
      */
-    public void rimuovi(){
-        domande.remove(n);
-        System.out.println("Question " + d.numero + " removed");
-    }
-
-    private void rivela(){
-        for(int i = 0; i < 4; i++) {
-            buttons[i].setEnabled(false);
-        }
-        //display the colors of the right and the wrong answers
-        for(int i = 0; i < 4; i++){
-            if(opzioni[i].getText().equals(risposta)){opzioni[i].setForeground(Color.GREEN);}
-            else{opzioni[i].setForeground(Color.RED);}
+    private void buttonShow(){
+        if(dropPanel != null) {
+            this.remove(dropPanel);
         }
 
-        Timer pause = new Timer(2000, new ActionListener() {
+        // Create the drop panel
+        dropPanel = new JPanel(new BorderLayout());
+        dropPanel.setBounds(200, 200, 200, 100);
+        dropPanel.setBackground(Color.WHITE);
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for(int i = 0; i < 4; i++){
-                    opzioni[i].setForeground(Color.WHITE);
-                    buttons[i].setEnabled(true);
-                }
-                next();
-            }
-        });
+        showButton = new JButton("show answer");
+        showButton.setBounds(0, 0, 20, 20);
+        showButton.setBackground(Color.BLACK);
+        showButton.setFocusable(false);
+        showButton.addActionListener(this);
+        showButton.setFont(new Font("Ink Free", Font.BOLD, 10));
+        showButton.setEnabled(true);
 
-        pause.setRepeats(false);
-        pause.start();
+        dropPanel.add(showButton);
+
+        // Add the drop panel to the main panel
+        this.add(dropPanel);
+        this.revalidate();
+        this.repaint();
     }
+
+    /**
+     * method which shows the two buttons used to give the answer
+     */
+    private void answer() {
+        if (dropPanel != null) {
+            this.remove(dropPanel);
+        }
+
+        risposta.setVisible(true);
+
+        // Create the drop panel with FlowLayout
+        JPanel dropPanel = new JPanel();
+        dropPanel.setLayout(null);
+        dropPanel.setBounds(200, 200, 200, 100);
+        dropPanel.setBackground(Color.WHITE);
+
+        b1 = new JButton("risposta corretta");
+        b1.setBounds(70, 0, 200,100);
+        b1.setFocusable(false);
+        b1.addActionListener(this);
+        b1.setFont(new Font("Ink Free", Font.BOLD, 30));
+        b1.setVisible(true);
+        dropPanel.add(b1);
+
+        b2 = new JButton("risposta errata");
+        b2.setBounds(430,0,200,100);
+        b2.setFocusable(false);
+        b2.addActionListener(this);
+        b2.setFont(new Font("Ink Free", Font.BOLD, 30));
+        b2.setVisible(true);
+        dropPanel.add(b2);
+
+        // Add the drop panel to the main panel
+        this.add(dropPanel);
+        this.revalidate();
+        this.repaint();
+    }
+
 
     public void setmainListener(mainListener l) { this.mainListener = l;}
 }

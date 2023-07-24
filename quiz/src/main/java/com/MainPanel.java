@@ -7,7 +7,6 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +23,8 @@ public class MainPanel extends JPanel implements ActionListener, DropTargetListe
 
     String testoletto;
     JPanel dropPanel; // New panel for drop zone
+    JLabel dropLabel;
+    JLabel iconLabel;
 
     public MainPanel(ArrayList<Domanda> domande) {
         this.setBackground(Color.BLACK);
@@ -64,7 +65,7 @@ public class MainPanel extends JPanel implements ActionListener, DropTargetListe
         dropPanel.setBackground(Color.DARK_GRAY);
 
         // Add the "drop file here" label to the drop panel
-        JLabel dropLabel = new JLabel("Drop file here", JLabel.CENTER);
+        dropLabel = new JLabel("Drop file here", JLabel.CENTER);
         dropLabel.setForeground(Color.WHITE);
         dropLabel.setFont(new Font("Ink Free", Font.BOLD, 20));
         dropPanel.add(dropLabel, BorderLayout.CENTER);
@@ -74,7 +75,7 @@ public class MainPanel extends JPanel implements ActionListener, DropTargetListe
         Image image = icon.getImage();
         Image resizedImage = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         ImageIcon resizedIcon = new ImageIcon(resizedImage);
-        JLabel iconLabel = new JLabel(resizedIcon, JLabel.CENTER);
+        iconLabel = new JLabel(resizedIcon, JLabel.CENTER);
         dropPanel.add(iconLabel, BorderLayout.SOUTH);
 
         // Add the drop panel to the main panel
@@ -84,7 +85,6 @@ public class MainPanel extends JPanel implements ActionListener, DropTargetListe
         DropTarget dropTarget = new DropTarget(this, this);
 
         this.setVisible(true);
-        System.out.println("main panel added to the frame");
     }
 
     @Override
@@ -105,27 +105,6 @@ public class MainPanel extends JPanel implements ActionListener, DropTargetListe
         this.mainListener = l;
     }
 
-
-    @Override
-    public void dragEnter(DropTargetDragEvent dtde) {
-
-    }
-
-    @Override
-    public void dragOver(DropTargetDragEvent dtde) {
-
-    }
-
-    @Override
-    public void dropActionChanged(DropTargetDragEvent dtde) {
-
-    }
-
-    @Override
-    public void dragExit(DropTargetEvent dte) {
-
-    }
-
     @Override
     public void drop(DropTargetDropEvent event) {
         System.out.println("a file has been dropped");
@@ -133,8 +112,7 @@ public class MainPanel extends JPanel implements ActionListener, DropTargetListe
             event.acceptDrop(DnDConstants.ACTION_COPY);
             List<File> droppedFiles = (List<File>) event.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
             File droppedFile = droppedFiles.get(0);
-            try (InputStream inputStream = Main.class.getResourceAsStream("/domande.csv");
-                 BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+            try (BufferedReader br = new BufferedReader(new FileReader(droppedFile))) {
                 String line;
                 while ((line = br.readLine()) != null) {
                     String[] data = line.split(";");
@@ -150,28 +128,45 @@ public class MainPanel extends JPanel implements ActionListener, DropTargetListe
         }
         b1.setEnabled(true);
         b2.setEnabled(true);
+        preview();
     }
 
     /**
-     * method that reads the file that has been dropped
-     * @param file
-     * @throws IOException
+     * method that changes the drop panel to display a preview of the questions which has been inserted
      */
-    private void readFile(File file) throws IOException {
-        StringBuilder content = new StringBuilder();
+    private void preview(){
+        dropPanel.remove(dropLabel);
+        dropPanel.remove(iconLabel);
+        JTextArea pretext = new JTextArea();
+        pretext.setText(domande.toString());
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                content.append(line).append("\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
+        JScrollPane scrollPane = new JScrollPane(pretext);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        // Now you have the content of the file in the 'content' StringBuilder
-        // You can use it as needed, for example, display it in the text field
-        testoletto = content.toString();
+        dropPanel.add(scrollPane, BorderLayout.CENTER); // Add the JTextArea to the dropPanel
+
+        // Repaint the dropPanel to reflect the changes
+        dropPanel.revalidate();
+        dropPanel.repaint();
+    }
+
+    @Override
+    public void dragEnter(DropTargetDragEvent dtde) {
+
+    }
+    @Override
+    public void dragOver(DropTargetDragEvent dtde) {
+
+    }
+
+    @Override
+    public void dropActionChanged(DropTargetDragEvent dtde) {
+
+    }
+
+    @Override
+    public void dragExit(DropTargetEvent dte) {
+
     }
 }
