@@ -38,4 +38,4 @@ e il quiz partirà.
 
 ## Download section
 
-- [Download executable]()
+- [Download executable](https://raw.githubusercontent.com/federicovolpe/quiz_per_csv/main/Artifacts/quiz.jar)
