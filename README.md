@@ -1,41 +1,40 @@
-# app per quiz
+# simple quiz app
 
-l'idea del progetto è di creare una applicazione per quiz
+The main idea of the project is to build a quiz application for the .csv file that contains questions
 
 l'obiettivo principale della applicazione è la flessibilità
-di fatti a differenza da tutti i siti di quiz(che spesso sono a pagmento) questa punta a implementare dei quiz che siano 
-immagazinati in un qualsiasi file CSV facilmente producibile con qualsiasi programma di calcolo come excel o numbers.
-l'unico vincolo è che il formato sia: 
-<u>numero domanda</u>; 
-<u>domanda</u>; 
-<u>opzione1</u>; 
-<u>opzione2</u>; 
-<u>opzione3</u>; 
-<u>opzione4</u>; 
-<u>opzione corretta</u>
+The main objective of this application is flexibility so the essential difference is that despite other webdsites
+that need to insert the questions one by one in a form, in this application you can drop a text file of whatever format to instantly make a quiz.
+The only constraint is that the format of the file should be: 
+<u>question number</u>; 
+<u>question</u>; 
+<u>option1</u>; 
+<u>option2</u>; 
+<u>option3</u>; 
+<u>option4</u>; 
+<u>copy of the correct option</u>
 
-### le modalità
-dopo una lettura delle domande e creazione di queste ultime verrà chiesto all'utente di decidere
-se proseguire con il quiz classico a risposta multipla o di effettuare un quiz autovalutativo con risposte aperte.
-in entrambi i casi vige la possibilità di tornare indietro a vedere le domande precendenti con un semplice scroll di mouse
+### various modes
+after reading the questions (you can confirm that the file have been read correctly if you can see a preview of the text file)
+ you can choose between open questions and question with options.
+With the first option all the questions will be shown one at a time and you can try answering it without any help,
+you can later see if the answer you gave was close enough for your standards by showing the correct answer with the button show answer
+- if you chose that you gave the correct answer then you can press the corrisponding button and the question wont be asked you again,
+- if you chose that you gave the wrong answer then you can press the corrisponding button and the question will be reproposed in the future.
 
-- risposta multipla: verrà mostrata una domanda e quattro possibili risposte, l'utente ha il semplice compito di inserire uno dei quattro numeri corrispondenti alle risposte per scegliere quella desiderata e poi premere invio
-(verrà sempre mostrata in alto una semplice statistica delle domande date sbagliate e quelle date giuste e quante altre ne mancano da rispondere)
-                    
-- domande aperte: verrà mostrata una domanda, se l'utente preme il tasto invio viene mostrata la risposta, successivamente si può valutare se la risposta data dall'utente è reputata giusta, se giusta basta premere invio se sbagliata basta che si prema il tasto corrispondente
-                    
-**in entrambi i casi** le domande con esito negative verranno riproposte all'utente mentre quelle giuste non verrano più proposte
+With the second option all the questions will be shown on e at a time with theri relative options and they will be reproposed untill you get them all right
+
                                                                                                     
-## funzionamento                                                                                    
-****per fare funzionare tuttto c'è la necessità di avere java****                                   
-per provare l'applicazione prima di tutto verificare che tutti i files della repository siano posizionati nella stessa directory, 
-posizionarsi con il terminale nella directory dove stanno tutti i file                              
-lanciare il comando: javac main.java                                                                
-lanciare il comando: java main.java                                                                 
-                                                                                                    
-se tutto andrà come previsto verranno mostrate tutte le domande che sono state caricate con successo
-e il quiz partirà.  
+## requirements                                                                                 
+****before everything you need to have some version of java installed on your machine****  
+you can download the application from the download section.
+
+if youre coming from the Unimi Course: Aspetti Etici Legali e sociali dell'informatica you need to have a copy of the questions
+ive already provided the file and you can download it [here](https://raw.githubusercontent.com/federicovolpe/quiz_per_csv/main/Artifacts/quiz.jar) to later drop it in the application 
 
 ## Download section
 
 - [Download executable](https://raw.githubusercontent.com/federicovolpe/quiz_per_csv/main/Artifacts/quiz.jar)
+
+Feel free to leave any contribution
+it will be highly apreciated
