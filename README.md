@@ -34,4 +34,8 @@ lanciare il comando: javac main.java
 lanciare il comando: java main.java                                                                 
                                                                                                     
 se tutto andrà come previsto verranno mostrate tutte le domande che sono state caricate con successo
-e il quiz partirà.                                                                                  
+e il quiz partirà.  
+
+## Download section
+
+- [Download executable]()
