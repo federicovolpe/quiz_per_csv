@@ -30,11 +30,12 @@ With the second option all the questions will be shown on e at a time with theri
 you can download the application from the download section.
 
 if youre coming from the Unimi Course: Aspetti Etici Legali e sociali dell'informatica you need to have a copy of the questions
-ive already provided the file and you can download it [here](https://raw.githubusercontent.com/federicovolpe/quiz_per_csv/main/Artifacts/quiz.jar) to later drop it in the application 
+ive already provided the file and you can download it [here](https://raw.githubusercontent.com/federicovolpe/quiz_per_csv/main/Artifacts/domande.csv) to later drop it in the application 
 
 ## Download section
 
 - [Download executable](https://raw.githubusercontent.com/federicovolpe/quiz_per_csv/main/Artifacts/quiz.jar)
+- [Download questions](https://raw.githubusercontent.com/federicovolpe/quiz_per_csv/main/Artifacts/domande.csv)(for aspetti etici)
 
 Feel free to leave any contribution
 it will be highly apreciated
